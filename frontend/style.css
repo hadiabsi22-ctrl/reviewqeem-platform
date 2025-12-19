@@ -7,7 +7,9 @@
   --accent: #9b5cff;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -74,7 +76,9 @@ body {
   font-weight: 600;
 }
 
-.card a:hover { text-decoration: underline; }
+.card a:hover {
+  text-decoration: underline;
+}
 
 .empty {
   grid-column: 1 / -1;
