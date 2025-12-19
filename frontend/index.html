@@ -12,466 +12,253 @@
   <style>
     :root{
       --bg:#0b0f1a;
-      --surface:#0f1628;
       --card:#121b33;
       --border:rgba(255,255,255,.08);
-
       --text:#e5e7eb;
       --muted:#9ca3af;
-
       --primary:#7c7cff;
       --accent:#22d3ee;
       --success:#22c55e;
-
-      --shadow: 0 18px 50px rgba(0,0,0,.35);
-      --radius: 18px;
+      --radius:18px;
     }
 
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: Cairo, Inter, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      font-family:Cairo,Inter,sans-serif;
       background:
         radial-gradient(900px 420px at 85% -10%, rgba(124,124,255,.22), transparent 60%),
         radial-gradient(900px 420px at 10% 10%, rgba(34,211,238,.12), transparent 60%),
-        radial-gradient(800px 360px at 70% 120%, rgba(34,197,94,.08), transparent 55%),
         var(--bg);
       color:var(--text);
-      min-height:100vh;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:1160px; margin:0 auto; padding:0 18px; }
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:1160px;margin:auto;padding:0 18px}
 
-    /* Header */
-    .header{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(11,15,26,.55);
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:blur(10px);
+      background:rgba(11,15,26,.6);
       border-bottom:1px solid var(--border);
     }
+
     .header-inner{
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;justify-content:space-between;align-items:center;
       padding:14px 0;
     }
-    .brand{
-      display:flex; gap:10px; align-items:center;
-      font-weight:800; letter-spacing:.2px;
-    }
+
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800}
     .logo{
-      width:40px; height:40px; border-radius:14px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      box-shadow: 0 10px 30px rgba(124,124,255,.18);
-      display:grid; place-items:center;
+      width:40px;height:40px;border-radius:14px;
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      display:grid;place-items:center;
       font-weight:900;
     }
-    .brand small{ display:block; color:var(--muted); font-weight:600; margin-top:-2px; }
-    .nav{
-      display:flex; gap:14px; align-items:center;
-    }
-    .nav a{
-      padding:10px 12px;
-      border-radius:14px;
-      color:rgba(229,231,235,.9);
-      border:1px solid transparent;
-    }
-    .nav a:hover{
-      border-color:var(--border);
-      background: rgba(255,255,255,.03);
+
+    nav a{
+      margin-left:14px;
+      padding:8px 12px;
+      border-radius:12px;
+      font-weight:700;
+      color:#cbd5e1;
     }
 
-    /* Hero */
-    .hero{
-      padding:28px 0 14px;
-    }
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.3fr .7fr;
-      gap:18px;
-      align-items:stretch;
-      margin-top:18px;
-    }
-    .hero-card{
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      border:1px solid var(--border);
-      border-radius: calc(var(--radius) + 6px);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-    .hero-main{ padding:26px 22px; }
-    .kicker{
-      display:inline-flex; gap:10px; align-items:center;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      color:rgba(229,231,235,.92);
-      font-weight:700;
-    }
-    .dot{
-      width:9px; height:9px; border-radius:50%;
-      background: var(--success);
-      box-shadow:0 0 0 6px rgba(34,197,94,.13);
-    }
+    nav a:hover{background:rgba(255,255,255,.05)}
+
     h1{
-      margin:14px 0 10px;
-      font-size: 44px;
-      line-height:1.15;
-      letter-spacing:.2px;
+      font-size:42px;
+      margin:20px 0 10px;
     }
+
     .sub{
       color:var(--muted);
-      font-size: 18px;
       line-height:1.9;
-      margin:0 0 18px;
-      max-width: 62ch;
+      max-width:60ch;
     }
-    .hero-actions{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin-top:14px;
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.3fr .7fr;
+      gap:18px;
+      margin-top:24px;
     }
+
+    .hero-card{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:22px;
+    }
+
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:12px 14px;
-      border-radius:16px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
+      display:inline-block;
+      margin-top:12px;
+      padding:12px 16px;
+      border-radius:14px;
       font-weight:800;
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease;
-      user-select:none;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--border);
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.05); }
+
     .btn.primary{
-      border-color: rgba(124,124,255,.35);
-      background: linear-gradient(135deg, rgba(124,124,255,.22), rgba(34,211,238,.14));
+      background:linear-gradient(135deg,rgba(124,124,255,.3),rgba(34,211,238,.2));
     }
 
-    /* Side stats */
-    .side{ padding:18px; display:flex; flex-direction:column; gap:12px; }
     .stat{
-      background: rgba(255,255,255,.03);
       border:1px solid var(--border);
-      border-radius: 16px;
+      border-radius:16px;
       padding:14px;
-    }
-    .stat .label{ color:var(--muted); font-weight:700; }
-    .stat .value{ font-size:28px; font-weight:900; margin-top:6px; }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      margin-top:10px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.02);
-      color:rgba(229,231,235,.92);
-      font-weight:800;
-    }
-    .pill .mini{ width:8px; height:8px; border-radius:50%; background: #f59e0b; }
-    .pill.ok .mini{ background: var(--success); }
-
-    /* Sections */
-    .section{
-      margin: 18px 0 26px;
-    }
-    .section-head{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap:12px;
       margin-bottom:12px;
     }
-    .section-title{
-      font-size:22px;
-      font-weight:900;
-      margin:0;
-    }
-    .section-desc{
-      margin:0;
-      color:var(--muted);
-      font-weight:700;
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      font-weight:800;
     }
 
-    /* Grid cards */
+    .pill.ok{color:#22c55e}
+
     .grid{
       display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:14px;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:16px;
+      margin-top:14px;
     }
+
     .card{
-      background: rgba(18,27,51,.65);
+      background:var(--card);
       border:1px solid var(--border);
-      border-radius: var(--radius);
-      overflow:hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,.22);
-      transition: transform .14s ease, border-color .14s ease;
-      min-height: 280px;
-    }
-    .card:hover{ transform: translateY(-2px); border-color: rgba(124,124,255,.22); }
-    .thumb{
-      height: 160px;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(11,15,26,.9)),
-        radial-gradient(500px 200px at 70% 10%, rgba(124,124,255,.25), transparent 60%),
-        rgba(255,255,255,.04);
-      position:relative;
-      overflow:hidden;
-    }
-    .thumb img{
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
-      filter: saturate(1.05) contrast(1.03);
-      opacity:.95;
-    }
-    .badge{
-      position:absolute;
-      top:12px; inset-inline-start:12px;
-      display:inline-flex; gap:8px; align-items:center;
-      padding:8px 10px;
-      border-radius:999px;
-      font-weight:900;
-      border:1px solid var(--border);
-      background: rgba(11,15,26,.55);
-      backdrop-filter: blur(10px);
-    }
-    .badge i{
-      width:10px; height:10px; border-radius:50%;
-      background: var(--accent);
-      box-shadow:0 0 0 6px rgba(34,211,238,.12);
-      display:inline-block;
+      border-radius:18px;
+      padding:16px;
+      min-height:220px;
     }
 
-    .card-body{ padding:14px 14px 16px; }
-    .title{
-      margin:0 0 8px;
-      font-size:20px;
-      line-height:1.5;
-      font-weight:900;
-    }
-    .summary{
-      margin:0;
-      color:rgba(229,231,235,.82);
-      line-height:1.9;
-      font-size:16px;
-      max-height: 3.8em;
-      overflow:hidden;
-    }
-    .meta{
-      margin-top:12px;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      color:var(--muted);
-      font-weight:800;
-      font-size:14px;
-    }
+    .card h3{margin:0 0 8px}
+    .card p{color:#cbd5e1;line-height:1.9}
 
-    .footer{
+    footer{
+      margin-top:40px;
+      padding:24px 0;
       border-top:1px solid var(--border);
-      color:var(--muted);
-      padding:18px 0 28px;
-      margin-top:10px;
       text-align:center;
+      color:var(--muted);
       font-weight:700;
     }
 
-    /* Responsive */
-    @media (max-width: 980px){
-      h1{ font-size:36px; }
-      .hero-grid{ grid-template-columns: 1fr; }
-      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 560px){
-      h1{ font-size:30px; }
-      .sub{ font-size:17px; }
-      .nav{ gap:8px; }
-      .nav a{ padding:9px 10px; }
-      .grid{ grid-template-columns: 1fr; }
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr}
+      h1{font-size:34px}
     }
   </style>
 </head>
 <body>
 
-  <header class="header">
-    <div class="wrap header-inner">
-      <div class="brand">
-        <div class="logo">RQ</div>
-        <div>
-          <div>ReviewQeem</div>
-          <small>محتوى عربي — مراجعات ونظريات ألعاب</small>
-        </div>
-      </div>
-
-      <nav class="nav" aria-label="Main">
-        <a href="/index.html">الرئيسية</a>
-        <a href="/posts.html">المقالات</a>
-        <a href="/theories.html">النظريات</a>
-      </nav>
+<header>
+  <div class="wrap header-inner">
+    <div class="brand">
+      <div class="logo">RQ</div>
+      <div>ReviewQeem</div>
     </div>
-  </header>
+    <nav>
+      <a href="/index.html">الرئيسية</a>
+      <a href="/posts.html">المقالات</a>
+      <a href="/theories.html">النظريات</a>
+    </nav>
+  </div>
+</header>
 
-  <main class="wrap hero">
-    <div class="hero-grid">
-      <section class="hero-card">
-        <div class="hero-main">
-          <div class="kicker"><span class="dot"></span> موقع قراءة Gaming عربي — دارك مود نظيف</div>
-          <h1>اقرأ… واستمتع. نظريات ومقالات بتجربة <span style="color:var(--accent)">حديثة</span>.</h1>
-          <p class="sub">
-            تصميم RTL احترافي، خطوط مريحة، ومحتوى يصل من السيرفر مباشرة. لا روابط Admin هنا. فقط واجهة عامة للقراء.
-          </p>
+<main class="wrap">
+  <div class="hero-grid">
 
-          <div class="hero-actions">
-            <a class="btn primary" href="/posts.html">تصفح المقالات</a>
-            <a class="btn" href="/theories.html">اكتشف النظريات</a>
-          </div>
-        </div>
-      </section>
-
-      <aside class="hero-card">
-        <div class="side">
-          <div class="stat">
-            <div class="pill" id="apiPill"><span class="mini"></span><span id="apiText">جاري الفحص</span></div>
-          </div>
-
-          <div class="stat">
-            <div class="label">أحدث المقالات</div>
-            <div class="value" id="postsCount">—</div>
-            <div class="section-desc">آخر 6 عناصر</div>
-          </div>
-
-          <div class="stat">
-            <div class="label">أحدث النظريات</div>
-            <div class="value" id="theoriesCount">—</div>
-            <div class="section-desc">آخر 6 عناصر</div>
-          </div>
-        </div>
-      </aside>
-    </div>
-
-    <section class="section">
-      <div class="section-head">
-        <div>
-          <h2 class="section-title">أحدث النظريات</h2>
-          <p class="section-desc">مختارات من آخر ما نُشر</p>
-        </div>
-      </div>
-
-      <div class="grid" id="theoriesGrid"></div>
+    <section class="hero-card">
+      <h1>اقرأ… واستمتع</h1>
+      <p class="sub">
+        نظريات ومقالات ألعاب عربية بتصميم مريح وتجربة قراءة حديثة.
+      </p>
+      <a class="btn primary" href="/posts.html">تصفح المقالات</a>
+      <a class="btn" href="/theories.html">استكشف النظريات</a>
     </section>
 
-    <section class="section">
-      <div class="section-head">
-        <div>
-          <h2 class="section-title">أحدث المقالات</h2>
-          <p class="section-desc">مراجعات وكتابات حديثة</p>
+    <aside class="hero-card">
+      <div class="stat">
+        <div class="pill" id="apiPill">
+          <span id="apiStatus">●</span>
+          <span id="apiText">جاري الفحص</span>
         </div>
       </div>
 
-      <div class="grid" id="postsGrid"></div>
-    </section>
+      <div class="stat">
+        <div>أحدث المقالات</div>
+        <strong id="postsCount">—</strong>
+      </div>
 
-    <div class="footer">ReviewQeem © — واجهة عامة (بدون أي روابط لوحة تحكم)</div>
-  </main>
+      <div class="stat">
+        <div>أحدث النظريات</div>
+        <strong id="theoriesCount">—</strong>
+      </div>
+    </aside>
+
+  </div>
+
+  <section>
+    <h2>أحدث النظريات</h2>
+    <div class="grid" id="theoriesGrid"></div>
+  </section>
+
+  <section>
+    <h2>أحدث المقالات</h2>
+    <div class="grid" id="postsGrid"></div>
+  </section>
+</main>
+
+<footer>
+© ReviewQeem — جميع الحقوق محفوظة
+</footer>
+
 <script>
-  const API_BASE = "/api";
+const API="/api";
 
-  function escapeHtml(s){
-    return (s || "").replace(/[&<>"']/g, m => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[m]));
+function card(item){
+  const link = item.type==="theory"
+    ? `/theory.html?id=${item.id}`
+    : `/post.html?id=${item.id}`;
+
+  return `
+    <a class="card" href="${link}">
+      <h3>${item.title}</h3>
+      <p>${item.summary || "—"}</p>
+    </a>`;
+}
+
+async function load(){
+  try{
+    const health = await fetch(API+"/health").then(r=>r.json());
+    document.getElementById("apiPill").classList.add("ok");
+    document.getElementById("apiText").textContent="السيرفر يعمل";
+  }catch{
+    document.getElementById("apiText").textContent="غير متصل";
   }
 
-  function formatDate(str){
-    if (!str) return "";
-    // SQLite "YYYY-MM-DD HH:mm:ss"
-    const d = new Date(str.replace(" ", "T") + "Z");
-    if (isNaN(d.getTime())) return str;
-    return d.toLocaleDateString("ar-SA", { year:"numeric", month:"short", day:"numeric" });
-  }
+  const theories = await fetch(API+"/posts?type=theory").then(r=>r.json());
+  const posts = await fetch(API+"/posts?type=post").then(r=>r.json());
 
-  function cardHTML(item){
-    const isTheory = item.type === "theory";
-    const href = isTheory ? ("/theory.html?id=" + item.id) : ("/post.html?id=" + item.id);
+  document.getElementById("theoriesCount").textContent=theories.length;
+  document.getElementById("postsCount").textContent=posts.length;
 
-    const badge = isTheory ? "نظرية" : "مقال";
-    const cover = item.coverImage && typeof item.coverImage === "string" ? item.coverImage : "";
+  document.getElementById("theoriesGrid").innerHTML =
+    theories.slice(0,3).map(card).join("");
 
-    return `
-      <a class="card" href="${href}">
-        <div class="thumb">
-          <div class="badge"><i></i>${badge}</div>
-          ${cover ? `<img loading="lazy" src="${cover}" alt="${escapeHtml(item.title)}">` : ""}
-        </div>
-        <div class="card-body">
-          <h3 class="title">${escapeHtml(item.title || "بدون عنوان")}</h3>
-          <p class="summary">${escapeHtml(item.summary || "—")}</p>
-          <div class="meta">
-            <span>${formatDate(item.created_at)}</span>
-            <span style="color:rgba(229,231,235,.85);font-weight:900">اقرأ</span>
-          </div>
-        </div>
-      </a>
-    `;
-  }
+  document.getElementById("postsGrid").innerHTML =
+    posts.slice(0,3).map(card).join("");
+}
 
-  async function fetchJSON(url){
-    const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    return await res.json();
-  }
-
-  async function load(){
-    // API health
-    try{
-      const h = await fetchJSON(API_BASE + "/health");
-      const ok = !!h.ok;
-      document.getElementById("apiStatus").textContent = ok ? "OK" : "DOWN";
-      const pill = document.getElementById("apiPill");
-      pill.classList.toggle("ok", ok);
-      document.getElementById("apiText").textContent = ok ? "السيرفر يعمل" : "غير متصل";
-    }catch(e){
-      document.getElementById("apiStatus").textContent = "DOWN";
-      document.getElementById("apiText").textContent = "غير متصل";
-    }
-
-    // Latest theories/posts
-    const theoriesGrid = document.getElementById("theoriesGrid");
-    const postsGrid = document.getElementById("postsGrid");
-
-    theoriesGrid.innerHTML = "";
-    postsGrid.innerHTML = "";
-
-    try{
-      const theories = await fetchJSON(API_BASE + "/posts?type=theory");
-      document.getElementById("theoriesCount").textContent = Array.isArray(theories) ? Math.min(theories.length, 6) : "0";
-
-      (Array.isArray(theories) ? theories.slice(0,6) : []).forEach(item => {
-        theoriesGrid.insertAdjacentHTML("beforeend", cardHTML(item));
-      });
-
-      if (!theories || theories.length === 0){
-        theoriesGrid.innerHTML = "<div style='color:var(--muted);font-weight:800'>لا توجد نظريات منشورة بعد.</div>";
-      }
-    }catch(e){
-      theoriesGrid.innerHTML = "<div style='color:var(--muted);font-weight:800'>تعذر تحميل النظريات.</div>";
-    }
-
-    try{
-      const posts = await fetchJSON(API_BASE + "/posts?type=post");
-      document.getElementById("postsCount").textContent = Array.isArray(posts) ? Math.min(posts.length, 6) : "0";
-
-      (Array.isArray(posts) ? posts.slice(0,6) : []).forEach(item => {
-        postsGrid.insertAdjacentHTML("beforeend", cardHTML(item));
-      });
-
-      if (!posts || posts.length === 0){
-        postsGrid.innerHTML = "<div style='color:var(--muted);font-weight:800'>لا توجد مقالات منشورة بعد.</div>";
-      }
-    }catch(e){
-      postsGrid.innerHTML = "<div style='color:var(--muted);font-weight:800'>تعذر تحميل المقالات.</div>";
-    }
-  }
-
-  load();
+load();
 </script>
 
 </body>
