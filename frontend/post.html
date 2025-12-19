@@ -1,31 +1,21 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>مقال | ReviewQeem</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body{margin:0;font-family:'Cairo',sans-serif;background:#020617;color:#e5e7eb}
-.container{max-width:900px;margin:40px auto;padding:20px}
-h1{font-size:36px}
-.block{font-size:18px;line-height:1.9;margin:20px 0}
-img{max-width:100%;border-radius:16px;margin:20px 0}
-</style>
+  <meta charset="UTF-8" />
+  <title>المقال | ReviewQeem</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div id="content" class="container">جاري التحميل…</div>
-<script>
-const id=new URLSearchParams(location.search).get("id");
-fetch("https://reviewqeem.online/api/post-blocks/"+id)
-.then(r=>r.json())
-.then(post=>{
-const c=document.getElementById("content");
-c.innerHTML=`<h1>${post.title}</h1>`;
-post.blocks.forEach(b=>{
-if(b.type==="text")c.innerHTML+=`<div class="block">${b.content}</div>`;
-if(b.type==="image")c.innerHTML+=`<img src="${b.content}">`;
-});
-});
-</script>
+
+  <main class="reader">
+    <h1 id="post-title" class="reader-title"></h1>
+
+    <div id="post-summary" class="reader-summary"></div>
+
+    <div id="post-content" class="reader-content"></div>
+  </main>
+
+  <script src="assets/js/post.js"></script>
 </body>
 </html>
