@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ReviewQeem — مراجعات ونظريات الألعاب</title>
+  <meta name="description" content="مقالات ونظريات عربية عن الألعاب بتصميم احترافي وتجربة قراءة سريعة." />
+  <style>
+    :root{
+      --bg:#070b16;
+      --bg2:#0a1226;
+      --card:rgba(255,255,255,.06);
+      --stroke:rgba(255,255,255,.10);
+      --text:#eaf0ff;
+      --muted:rgba(234,240,255,.72);
+      --accent:#6d28d9;
+      --accent2:#22c55e;
+      --danger:#ef4444;
+      --shadow:0 18px 60px rgba(0,0,0,.45);
+      --radius:18px;
+      --radius2:24px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(109,40,217,.45), transparent 55%),
+        radial-gradient(900px 500px at 10% 10%, rgba(34,197,94,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:26px 18px 70px}
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:14px;padding:14px 16px;border:1px solid var(--stroke);
+      background:rgba(0,0,0,.22);backdrop-filter: blur(10px);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      position:sticky;top:14px;z-index:9;
+    }
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{
+      width:38px;height:38px;border-radius:12px;
+      background:linear-gradient(135deg, var(--accent), #0ea5e9);
+      box-shadow:0 10px 30px rgba(109,40,217,.35);
+      display:grid;place-items:center;font-weight:900;
+    }
+    .brand h1{margin:0;font-size:16px;letter-spacing:.2px}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+    .navlinks{display:flex;gap:10px;flex-wrap:wrap}
+    .chip{
+      padding:9px 12px;border-radius:999px;border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);
+      font-size:13px;color:var(--muted);
+    }
+    .chip:hover{color:var(--text);border-color:rgba(255,255,255,.18)}
+    .hero{
+      margin-top:18px;
+      border:1px solid var(--stroke);
+      background:
+        radial-gradient(900px 400px at 70% 10%, rgba(109,40,217,.30), transparent 55%),
+        radial-gradient(700px 350px at 15% 30%, rgba(14,165,233,.18), transparent 60%),
+        rgba(255,255,255,.03);
+      border-radius: var(--radius2);
+      padding:26px 18px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .heroGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+    @media (max-width:900px){.heroGrid{grid-template-columns:1fr}}
+    .hero h2{margin:0 0 10px;font-size:30px;line-height:1.25}
+    .hero .sub{color:var(--muted);margin:0 0 18px;line-height:1.9}
+    .btns{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 14px;border-radius:14px;border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);
+      color:var(--text);font-weight:650;font-size:14px;
+    }
+    .btn.primary{
+      background:linear-gradient(135deg, var(--accent), #0ea5e9);
+      border-color:transparent;
+      box-shadow:0 18px 40px rgba(109,40,217,.25);
+    }
+    .btn.success{
+      background:linear-gradient(135deg, var(--accent2), #16a34a);
+      border-color:transparent;
+      box-shadow:0 18px 40px rgba(34,197,94,.18);
+    }
+    .statBox{
+      border:1px solid var(--stroke);border-radius: var(--radius2);
+      background:rgba(0,0,0,.20);
+      padding:18px;display:flex;flex-direction:column;justify-content:space-between;
+      min-height:180px;
+    }
+    .statRow{display:flex;gap:12px;flex-wrap:wrap}
+    .stat{
+      flex:1;min-width:130px;
+      border:1px solid var(--stroke);border-radius:16px;
+      background:rgba(255,255,255,.04);
+      padding:12px;
+    }
+    .stat .k{font-size:12px;color:var(--muted)}
+    .stat .v{font-size:20px;font-weight:800;margin-top:6px}
+    .sections{margin-top:22px;display:grid;gap:18px}
+    .section{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius2);
+      background:rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .sectionHead{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:16px 16px;border-bottom:1px solid rgba(255,255,255,.07);
+      background:rgba(0,0,0,.18);
+    }
+    .sectionHead h3{margin:0;font-size:16px}
+    .sectionHead .hint{color:var(--muted);font-size:12px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px}
+    @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:600px){.grid{grid-template-columns:1fr}}
+    .card{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      background:rgba(0,0,0,.18);
+      overflow:hidden;
+      transition:.15s transform ease, .15s border-color ease, .15s background ease;
+    }
+    .card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.18);background:rgba(0,0,0,.22)}
+    .thumb{
+      width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
+      background:linear-gradient(135deg, rgba(109,40,217,.35), rgba(14,165,233,.18));
+    }
+    .content{padding:14px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+    .tag{
+      font-size:11px;padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+    }
+    .title{margin:0 0 8px;font-size:16px;line-height:1.5}
+    .sum{margin:0;color:var(--muted);line-height:1.85;font-size:13px;max-height:4.9em;overflow:hidden}
+    .foot{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px
+    }
+    .read{
+      font-weight:750;font-size:13px;
+      padding:10px 12px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+    }
+    .date{font-size:12px;color:var(--muted)}
+    .state{
+      padding:16px;color:var(--muted);line-height:1.8
+    }
+    .err{
+      padding:14px 16px;border-radius:16px;margin:16px;
+      border:1px solid rgba(239,68,68,.30);
+      background:rgba(239,68,68,.10);
+      color:#fecaca;
+    }
+    footer{margin-top:22px;color:var(--muted);text-align:center;font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo">RQ</div>
+        <div>
+          <h1>ReviewQeem</h1>
+          <p>محتوى عربي — مراجعات ونظريات ألعاب</p>
+        </div>
+      </div>
+      <div class="navlinks">
+        <a class="chip" href="/theories.html">النظريات</a>
+        <a class="chip" href="/posts.html">المقالات</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="heroGrid">
+        <div>
+          <h2>اقرأ… واستمتع. نظريات ومقالات بتجربة “Gaming” حقيقية.</h2>
+          <p class="sub">
+            تصميم RTL احترافي + سرعة تحميل ممتازة + عرض صور آمن (بدون Base64 الثقيل).
+            الصفحة تجلب آخر المحتوى مباشرة من السيرفر.
+          </p>
+          <div class="btns">
+            <a class="btn primary" href="/theories.html">ابدأ بالنظريات</a>
+            <a class="btn success" href="/posts.html">تصفح المقالات</a>
+            
+          </div>
+        </div>
+        <div class="statBox">
+          <div class="statRow">
+            <div class="stat"><div class="k">أحدث النظريات</div><div class="v" id="statTheories">—</div></div>
+            <div class="stat"><div class="k">أحدث المقالات</div><div class="v" id="statPosts">—</div></div>
+          </div>
+          <div class="statRow">
+            <div class="stat"><div class="k">حالة API</div><div class="v" id="statApi">—</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sections">
+      <section class="section">
+        <div class="sectionHead">
+          <h3>أحدث النظريات</h3>
+          <div class="hint">آخر 6 نظريات منشورة</div>
+        </div>
+        <div class="state" id="theoriesState">جاري التحميل…</div>
+        <div class="grid" id="theoriesGrid" style="display:none"></div>
+      </section>
+
+      <section class="section">
+        <div class="sectionHead">
+          <h3>أحدث المقالات</h3>
+          <div class="hint">آخر 6 مقالات منشورة</div>
+        </div>
+        <div class="state" id="postsState">جاري التحميل…</div>
+        <div class="grid" id="postsGrid" style="display:none"></div>
+      </section>
+    </div>
+
+    <footer>© ReviewQeem — نسخة تجريبية محسّنة للواجهة الرئيسية</footer>
+  </div>
+<script>
+  const API_BASE = "/api";
+
+  function fmtDate(s){
+    try{
+      if(!s) return "";
+      const d = new Date(s.replace(" ","T")+"Z");
+      return isNaN(d) ? s : d.toLocaleDateString("ar-SA", {year:"numeric", month:"short", day:"numeric"});
+    }catch(e){ return s || ""; }
+  }
+
+  function safeText(x){
+    return String(x ?? "").replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+  }
+
+  function cardHTML(item){
+    const isTheory = item.type === "theory";
+    const link = isTheory ? `/theory.html?id=${item.id}` : `/post.html?id=${item.id}`;
+    const cover = item.coverImage ? item.coverImage : null;
+    const tag = isTheory ? "نظرية" : "مقال";
+    const summary = (item.summary && String(item.summary).trim()) ? item.summary : "لا يوجد ملخص حالياً.";
+    return `
+      <article class="card">
+        ${cover ? `<img class="thumb" src="${cover}" alt="${safeText(item.title)}">` : `<div class="thumb"></div>`}
+        <div class="content">
+          <div class="meta">
+            <span class="tag">${tag}</span>
+            <span class="tag">${fmtDate(item.created_at)}</span>
+          </div>
+          <h4 class="title">${safeText(item.title)}</h4>
+          <p class="sum">${safeText(summary)}</p>
+          <div class="foot">
+            <a class="read" href="${link}">اقرأ الآن</a>
+            <span class="date">#${item.id}</span>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  async function fetchJSON(url){
+    const res = await fetch(url, {cache:"no-store"});
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    return await res.json();
+  }
+
+  async function loadSection(type, gridId, stateId, statId){
+    const grid = document.getElementById(gridId);
+    const state = document.getElementById(stateId);
+    try{
+      const items = await fetchJSON(`${API_BASE}/posts?type=${encodeURIComponent(type)}`);
+      const top = Array.isArray(items) ? items.slice(0,6) : [];
+      document.getElementById(statId).textContent = top.length ? String(top.length) : "0";
+      if(!top.length){
+        state.textContent = "لا يوجد محتوى بعد.";
+        return;
+      }
+      grid.innerHTML = top.map(cardHTML).join("");
+      state.style.display = "none";
+      grid.style.display = "grid";
+    }catch(err){
+      console.error(err);
+      state.innerHTML = `<div class="err">فشل تحميل ${type === "theory" ? "النظريات" : "المقالات"} — تأكد أن API يعمل.</div>`;
+      document.getElementById(statId).textContent = "0";
+    }
+  }
+
+  async function checkApi(){
+    const el = document.getElementById("statApi");
+    try{
+      const r = await fetchJSON(`${API_BASE}/health`);
+      el.textContent = (r && r.ok) ? "OK" : "—";
+    }catch(e){
+      el.textContent = "OFF";
+    }
+  }
+
+  (async function init(){
+    await checkApi();
+    await loadSection("theory","theoriesGrid","theoriesState","statTheories");
+    await loadSection("post","postsGrid","postsState","statPosts");
+  })();
+</script>
+</body>
+</html>
+<header class="rq-header">
+  <div class="rq-logo">Review<span>Qeem</span></div>
+
+  <nav class="rq-nav">
+    <a href="/index.html">الرئيسية</a>
+    <a href="/theories.html">النظريات</a>
+    <a href="/posts.html">المقالات</a>
+  </nav>
+</header>
+<section class="rq-hero">
+  <h1>اقرأ. حلّل. استمتع.</h1>
+  <p>
+    منصة عربية متخصصة في <strong>مراجعات الألعاب</strong> و
+    <strong>نظريات Gaming</strong> العميقة — بدون حشو، بدون هراء.
+  </p>
+
+  <div class="rq-actions">
+    <a href="/theories.html" class="btn primary">ابدأ بالنظريات</a>
+    <a href="/posts.html" class="btn ghost">تصفح المقالات</a>
+  </div>
+</section>

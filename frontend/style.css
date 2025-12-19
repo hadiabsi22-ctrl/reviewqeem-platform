@@ -1,0 +1,170 @@
+:root {
+  --bg: #020617;
+  --card: rgba(15, 23, 42, 0.8);
+  --border: rgba(255,255,255,0.08);
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --primary: #6366f1;
+  --accent: #22d3ee;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 90% -10%, #312e81, transparent),
+    radial-gradient(900px 500px at 10% 10%, #0f766e, transparent),
+    var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  direction: rtl;
+}
+
+/* ===== Header ===== */
+.rq-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+  background: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.rq-logo {
+  font-size: 26px;
+  font-weight: 900;
+}
+.rq-logo span {
+  color: var(--primary);
+}
+
+.rq-nav a {
+  margin-right: 24px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 17px;
+}
+.rq-nav a:hover {
+  color: #fff;
+}
+
+/* ===== Hero ===== */
+.rq-hero {
+  max-width: 1200px;
+  margin: 80px auto 40px;
+  padding: 0 24px;
+}
+
+.rq-hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.rq-hero p {
+  font-size: clamp(18px, 3vw, 22px);
+  max-width: 800px;
+  color: var(--muted);
+}
+
+.rq-actions {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.btn {
+  padding: 16px 32px;
+  border-radius: 16px;
+  font-size: 18px;
+  text-decoration: none;
+  transition: transform .15s ease, opacity .15s;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #020617;
+  font-weight: 800;
+}
+
+.btn.ghost {
+  border: 1px solid var(--border);
+  color: #fff;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  opacity: .95;
+}
+
+/* ===== Sections ===== */
+.section {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 24px;
+}
+
+.section h2 {
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+/* ===== Cards Grid ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  transition: transform .2s ease, box-shadow .2s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.35);
+}
+
+.card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-body h3 {
+  font-size: 20px;
+  margin: 0 0 12px;
+}
+
+.card-body p {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 640px) {
+  .rq-header {
+    padding: 16px 20px;
+  }
+  .rq-nav {
+    display: none;
+  }
+}
