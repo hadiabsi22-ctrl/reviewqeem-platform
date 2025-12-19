@@ -1,28 +1,39 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const container = document.getElementById('posts-container');
-  if (!container) return;
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+
+  if (!id) return;
+
+  const titleEl = document.getElementById('post-title');
+  const summaryEl = document.getElementById('post-summary');
+  const contentEl = document.getElementById('post-content');
 
   try {
-    const res = await fetch('/api/posts?type=post');
-    const posts = await res.json();
+    const res = await fetch(`/api/posts/${id}`);
+    const post = await res.json();
 
-    if (!Array.isArray(posts) || posts.length === 0) {
-      container.innerHTML = '<p class="empty">لا توجد مقالات حالياً</p>';
-      return;
-    }
+    titleEl.textContent = post.title;
+    summaryEl.textContent = post.summary || '';
 
-    container.innerHTML = posts.map(post => `
-      <article class="card">
-        <h2>${post.title}</h2>
-        <p class="summary">${post.summary || ''}</p>
-        <div class="meta">
-          <span>${new Date(post.created_at).toLocaleDateString('ar-EG')}</span>
-          <a href="post.html?id=${post.id}">اقرأ المقال</a>
-        </div>
-      </article>
-    `).join('');
+    // Render blocks
+    post.blocks.forEach(block => {
+      if (block.type === 'text') {
+        const p = document.createElement('p');
+        p.className = 'text-block';
+        p.textContent = block.content;
+        contentEl.appendChild(p);
+      }
+
+      if (block.type === 'image') {
+        const img = document.createElement('img');
+        img.className = 'image-block';
+        img.src = block.content;
+        img.alt = post.title;
+        contentEl.appendChild(img);
+      }
+    });
+
   } catch (err) {
-    console.error(err);
-    container.innerHTML = '<p class="empty">فشل تحميل المقالات</p>';
+    contentEl.innerHTML = '<p class="empty">فشل تحميل المحتوى</p>';
   }
 });
