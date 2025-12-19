@@ -1,38 +1,18 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>النظريات | ReviewQeem</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body{margin:0;font-family:'Cairo',sans-serif;background:radial-gradient(1200px 600px at top left,#0f172a,#020617);color:#e5e7eb}
-.container{max-width:1200px;margin:auto;padding:40px}
-h1{font-size:42px;margin-bottom:30px}
-.list{display:flex;flex-direction:column;gap:20px}
-.item{padding:24px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
-.item h3{margin:0 0 10px;font-size:24px}
-.item p{opacity:.85}
-</style>
+  <meta charset="UTF-8" />
+  <title>النظريات | ReviewQeem</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-<div class="container">
-<h1>🧠 النظريات</h1>
-<div id="list" class="list">جاري التحميل…</div>
-</div>
-<script>
-fetch("https://reviewqeem.online/api/posts?type=theory")
-.then(r=>r.json())
-.then(d=>{
-const box=document.getElementById("list");
-box.innerHTML="";
-d.forEach(p=>{
-box.innerHTML+=`
-<a class="item" href="theory.html?id=${p.id}">
-<h3>${p.title}</h3>
-<p>${p.summary||''}</p>
-</a>`;
-});
-});
-</script>
+
+  <div class="page">
+    <h1 class="page-title">🧠 النظريات</h1>
+    <div id="theories-container" class="cards-grid"></div>
+  </div>
+
+  <script src="/assets/js/theories.js"></script>
 </body>
 </html>
