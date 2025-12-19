@@ -1,35 +1,112 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<title>قراءة مقال — ReviewQeem</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>قراءة المقال — ReviewQeem</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      margin:0;
+      font-family:Cairo,system-ui;
+      background:#0b0f1a;
+      color:#e5e7eb;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:860px;margin:auto;padding:20px}
+
+    header{
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:rgba(11,15,26,.6);
+      backdrop-filter:blur(10px);
+    }
+    header .wrap{
+      display:flex;justify-content:space-between;align-items:center
+    }
+
+    h1{font-size:34px;margin:20px 0}
+    .meta{color:#9ca3af;font-weight:700;margin-bottom:30px}
+
+    .block{margin-bottom:26px;line-height:2;font-size:18px}
+    .block img{
+      width:100%;
+      border-radius:18px;
+      margin:18px 0;
+    }
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.08);
+      margin-top:40px;
+      padding:20px 0;
+      color:#9ca3af;
+      text-align:center;
+      font-weight:700;
+    }
+
+    @media(max-width:600px){
+      h1{font-size:26px}
+      .block{font-size:16px}
+    }
+  </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="wrap header-inner">
-    <a class="brand" href="/index.html">
-      <div class="logo">RQ</div>
-      <div>ReviewQeem</div>
-    </a>
+<header>
+  <div class="wrap">
+    <strong>ReviewQeem</strong>
+    <nav>
+      <a href="/index.html">الرئيسية</a> ·
+      <a href="/posts.html">المقالات</a> ·
+      <a href="/theories.html">النظريات</a>
+    </nav>
   </div>
 </header>
 
-<main class="wrap section" id="content"></main>
+<main class="wrap">
+  <h1 id="title">...</h1>
+  <div class="meta" id="date"></div>
+  <div id="content"></div>
+</main>
+
+<footer>
+  ReviewQeem © — محتوى عربي للألعاب
+</footer>
 
 <script>
-const id=new URLSearchParams(location.search).get("id");
-fetch("/api/posts/"+id)
+const API = "/api/posts/";
+const id = new URLSearchParams(location.search).get("id");
+
+function esc(s){
+  return (s||"").replace(/[&<>"]/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[m]));
+}
+
+fetch(API + id)
 .then(r=>r.json())
-.then(p=>{
-  const el=document.getElementById("content");
-  el.innerHTML=`
-    <h1 class="section-title">${p.title}</h1>
-    <p class="section-desc">${p.summary||""}</p>
-    ${(p.blocks||[]).map(b=>`<p style="line-height:2">${b.content}</p>`).join("")}
-  `;
+.then(data=>{
+  document.title = data.title + " — ReviewQeem";
+  document.getElementById("title").textContent = data.title;
+  document.getElementById("date").textContent =
+    new Date(data.created_at.replace(" ","T")+"Z")
+      .toLocaleDateString("ar-SA");
+
+  const box = document.getElementById("content");
+
+  data.blocks.forEach(b=>{
+    if(b.type === "text"){
+      box.innerHTML += `<div class="block">${esc(b.content)}</div>`;
+    }
+    if(b.type === "image"){
+      box.innerHTML += `<div class="block"><img src="${b.image}"></div>`;
+    }
+  });
+})
+.catch(()=>{
+  document.getElementById("content").innerHTML =
+    "<p>تعذر تحميل المقال</p>";
 });
 </script>
 
