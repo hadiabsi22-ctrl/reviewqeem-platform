@@ -1,21 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>المقالات | ReviewQeem</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <title>المقالات — ReviewQeem</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-  <main class="page">
-    <h1 class="page-title">📰 المقالات</h1>
+<header class="header">
+  <div class="wrap header-inner">
+    <div class="brand">
+      <div class="logo">RQ</div>
+      <div>
+        <div>ReviewQeem</div>
+        <small>مقالات ألعاب عربية</small>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="/index.html">الرئيسية</a>
+      <a href="/posts.html">المقالات</a>
+      <a href="/theories.html">النظريات</a>
+    </nav>
+  </div>
+</header>
 
-    <section id="posts-container" class="cards-grid">
-      <p class="empty">جاري تحميل المقالات…</p>
-    </section>
-  </main>
+<main class="wrap section">
+  <div class="section-head">
+    <h1 class="section-title">📰 المقالات</h1>
+    <p class="section-desc">مراجعات وكتابات معمّقة</p>
+  </div>
 
-  <script src="assets/js/posts.js"></script>
+  <div class="grid" id="postsGrid"></div>
+</main>
+
+<script>
+const API = "/api/posts?type=post";
+
+function esc(s){return (s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+
+fetch(API)
+.then(r=>r.json())
+.then(items=>{
+  const grid=document.getElementById("postsGrid");
+  if(!items.length){
+    grid.innerHTML="<p style='color:#9ca3af'>لا توجد مقالات.</p>";
+    return;
+  }
+  items.forEach(p=>{
+    grid.insertAdjacentHTML("beforeend",`
+      <a class="card" href="/post.html?id=${p.id}">
+        <div class="thumb">
+          <div class="badge"><i></i>مقال</div>
+        </div>
+        <div class="card-body">
+          <h3 class="title">${esc(p.title)}</h3>
+          <p class="summary">${esc(p.summary||"—")}</p>
+        </div>
+      </a>
+    `);
+  });
+});
+</script>
+
 </body>
 </html>
