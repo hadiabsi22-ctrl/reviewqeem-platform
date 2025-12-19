@@ -11,18 +11,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    container.innerHTML = posts.map(p => `
+    container.innerHTML = posts.map(post => `
       <article class="card">
-        <h2>${p.title}</h2>
-        <p class="summary">${p.summary || ''}</p>
+        <h2>${post.title}</h2>
+        <p class="summary">${post.summary || ''}</p>
         <div class="meta">
-          <span>${new Date(p.created_at).toLocaleDateString('ar-EG')}</span>
-          <a href="post.html?id=${p.id}">اقرأ المقال</a>
+          <span>${new Date(post.created_at).toLocaleDateString('ar-EG')}</span>
+          <a href="post.html?id=${post.id}">اقرأ المقال</a>
         </div>
       </article>
     `).join('');
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
     container.innerHTML = '<p class="empty">فشل تحميل المقالات</p>';
   }
 });
