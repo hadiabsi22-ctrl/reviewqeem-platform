@@ -1,128 +1,55 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>النظريات — ReviewQeem</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#0b0f1a;
-      --card:#121b33;
-      --border:rgba(255,255,255,.08);
-      --text:#e5e7eb;
-      --muted:#9ca3af;
-      --primary:#7c7cff;
-      --accent:#22d3ee;
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Cairo,Inter,sans-serif;
-      background:radial-gradient(800px 400px at 80% -10%,rgba(124,124,255,.25),transparent 60%),var(--bg);
-      color:var(--text);
-    }
-    a{text-decoration:none;color:inherit}
-    .wrap{max-width:1160px;margin:0 auto;padding:0 18px}
-
-    header{
-      position:sticky;top:0;
-      background:rgba(11,15,26,.6);
-      backdrop-filter:blur(10px);
-      border-bottom:1px solid var(--border);
-    }
-    .header-inner{
-      display:flex;justify-content:space-between;align-items:center;
-      padding:14px 0;
-    }
-    .brand{display:flex;gap:10px;align-items:center;font-weight:900}
-    .logo{
-      width:40px;height:40px;border-radius:14px;
-      background:linear-gradient(135deg,var(--primary),var(--accent));
-      display:grid;place-items:center;
-    }
-    nav a{margin-inline-start:12px}
-
-    h1{font-size:34px;margin:28px 0 8px}
-    .desc{color:var(--muted);font-weight:700;margin-bottom:20px}
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-    }
-    .card{
-      background:rgba(18,27,51,.7);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      overflow:hidden;
-      transition:.15s;
-    }
-    .card:hover{transform:translateY(-2px)}
-    .thumb{height:160px;background:linear-gradient(180deg,transparent,rgba(11,15,26,.9))}
-    .body{padding:14px}
-    .title{font-size:20px;font-weight:900;margin:0 0 8px}
-    .summary{color:rgba(229,231,235,.85);line-height:1.9}
-    .meta{margin-top:10px;font-size:14px;color:var(--muted);display:flex;justify-content:space-between}
-
-    @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:560px){.grid{grid-template-columns:1fr}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>النظريات — ReviewQeem</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Cairo,sans-serif;background:#0b0f1a;color:#e5e7eb}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1100px;margin:auto;padding:20px}
+header{border-bottom:1px solid rgba(255,255,255,.08);padding:14px 0}
+nav a{margin-left:16px;font-weight:700;color:#9ca3af}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:#121b33;border-radius:16px;padding:16px;border:1px solid rgba(255,255,255,.08)}
+.card h3{margin:0 0 10px}
+.card p{line-height:1.9;color:#cbd5e1}
+footer{text-align:center;color:#9ca3af;border-top:1px solid rgba(255,255,255,.08);padding:20px;margin-top:40px}
+</style>
 </head>
 <body>
 
-<header>
-  <div class="wrap header-inner">
-    <div class="brand">
-      <div class="logo">RQ</div>
-      ReviewQeem
-    </div>
-    <nav>
-      <a href="/index.html">الرئيسية</a>
-      <a href="/posts.html">المقالات</a>
-      <a href="/theories.html">النظريات</a>
-    </nav>
-  </div>
+<header class="wrap">
+<nav>
+<a href="/index.html">الرئيسية</a>
+<a href="/posts.html">المقالات</a>
+<a href="/theories.html">النظريات</a>
+</nav>
 </header>
 
 <main class="wrap">
-  <h1>النظريات</h1>
-  <p class="desc">تحليلات عميقة ونظريات لعوالم الألعاب</p>
+<h1>النظريات</h1>
+<p style="color:#9ca3af">تحليلات عميقة لعوالم الألعاب</p>
 
-  <div class="grid" id="grid"></div>
+<div class="grid" id="theories"></div>
 </main>
 
+<footer>© ReviewQeem — جميع الحقوق محفوظة</footer>
+
 <script>
-fetch("/api/posts?type=theory")
-  .then(r=>r.json())
-  .then(list=>{
-    const g=document.getElementById("grid");
-    if(!list.length){
-      g.innerHTML="<p style='color:var(--muted)'>لا توجد نظريات بعد.</p>";
-      return;
-    }
-    list.forEach(t=>{
-      g.insertAdjacentHTML("beforeend",`
-        <a class="card" href="/theory.html?id=${t.id}">
-          <div class="thumb"></div>
-          <div class="body">
-            <h3 class="title">${t.title}</h3>
-            <p class="summary">${t.summary||"—"}</p>
-            <div class="meta">
-              <span>${t.created_at}</span>
-              <span>اقرأ</span>
-            </div>
-          </div>
-        </a>
-      `);
-    });
-  })
-  .catch(()=>grid.innerHTML="<p>فشل التحميل</p>");
+fetch('/api/posts?type=theory')
+.then(r=>r.json())
+.then(data=>{
+  const box=document.getElementById('theories');
+  data.forEach(p=>{
+    box.innerHTML+=`
+    <a class="card" href="/theory.html?id=${p.id}">
+      <h3>${p.title}</h3>
+      <p>${p.summary || '—'}</p>
+    </a>`;
+  });
+});
 </script>
 
 </body>
