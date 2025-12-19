@@ -85,3 +85,46 @@ body {
   text-align: center;
   color: var(--muted);
 }
+
+
+/* ===== Reader Page ===== */
+
+.reader {
+  max-width: 800px;
+  margin: auto;
+  padding: 80px 20px;
+}
+
+.reader-title {
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.reader-summary {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 40px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.reader-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.text-block {
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.image-block {
+  width: 100%;
+  border-radius: 14px;
+}
+
